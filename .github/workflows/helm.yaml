@@ -21,6 +21,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5.0.0
+        with:
+          version: v4.2.4
       - name: Linting Chart
         run: helm lint ./charts/kube-green
       - name: Setup Chart Linting
@@ -73,6 +75,8 @@ jobs:
           token: ${{ secrets.GH_PAT_UPDATE_CONTENTS }}
       - name: Setup Helm
         uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5.0.0
+        with:
+          version: v4.2.4
       - name: Run chart-releaser to create release
         uses: kube-green/chart-releaser-action@0b33fc8b8c73d4d8eb2c94570c871bf5262a5955 # main
         env:
