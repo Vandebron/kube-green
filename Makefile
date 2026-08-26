@@ -138,6 +138,8 @@ lint-config: golangci-lint ## Verify golangci-lint linter configuration
 .PHONY: test
 test: manifests generate fmt vet gotestsum envtest ## Run tests.
 	@echo "Running tests with kubernetes version $(KIND_K8S_VERSION)..."
+	@K8S_MINOR=$$(echo "$(KIND_K8S_VERSION)" | sed 's/^v//' | cut -d. -f1,2); \
+	 $(ENVTEST) use -p path --bin-dir $(LOCALBIN) $$K8S_MINOR > /dev/null
 	KIND_K8S_VERSION=$(KIND_K8S_VERSION) $(GOTESTSUM) -- $(GO_TEST_ARGS) -race $(TEST_PATH)
 
 .PHONY: coverage
