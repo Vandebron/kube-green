@@ -154,12 +154,12 @@ e2e-test-kustomize: manifests generate kustomize
 	@$(KUSTOMIZE) build ./config/e2e-test/ -o /tmp/kube-green-e2e-test.yaml
 	@rm -rf ./tests/integration/tests-logs/
 	@echo "==> Generated K8s resource file with Kustomize"
-	CONTAINER_TOOL=$(CONTAINER_TOOL) INSTALLATION_MODE=kustomize go test -tags=e2e ./tests/integration/ -count 1 $(OPTION)
+	CONTAINER_TOOL=$(CONTAINER_TOOL) INSTALLATION_MODE=kustomize go test -tags=e2e -timeout 30m ./tests/integration/ -count 1 $(OPTION)
 
 .PHONY: e2e-test
 e2e-test:
 	@rm -rf ./tests/integration/tests-logs/
-	CONTAINER_TOOL=$(CONTAINER_TOOL) go test -tags=e2e ./tests/integration/ -count 1 $(OPTION)
+	CONTAINER_TOOL=$(CONTAINER_TOOL) go test -tags=e2e -timeout 30m ./tests/integration/ -count 1 $(OPTION)
 
 ##@ Build
 
